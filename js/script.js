@@ -19,19 +19,23 @@ numbers.forEach(function(number) {
 operators.forEach(function(operator) {
     operator.addEventListener("click", function(e) {
         let operatorsArray = [];
-
+        let lastChar = input.innerHTML.length - 1 // I found myself typing this a lot so buried it within a variable
         // populates an array of the operators
         operators.forEach(function(operator) {
             operatorsArray.push(operator.innerHTML);
         });
         // if the inputString is empty or the last character is an operator, do nothing, otherwise add the operator
-        if (
-            input.innerHTML == "" ||
-            operatorsArray.includes(input.innerHTML[input.innerHTML.length - 1])
-        ) {
+        if (input.innerHTML == "" || operatorsArray.includes(input.innerHTML[lastChar])) {
             //pass
         } else {
             input.innerHTML += this.innerHTML;
+        }
+        // If the last character is an operator, and another operator is clicked
+        // this replaces the previous operator with the most recent clicked one.
+        if (operatorsArray.includes(input.innerHTML[lastChar])) {
+            let a = input.innerHTML.substring(0, lastChar)
+            input.innerHTML = a
+            input.innerHTML += this.innerHTML
         }
     });
 });
