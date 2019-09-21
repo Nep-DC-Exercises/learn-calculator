@@ -11,7 +11,19 @@ let resultDisplayed = false; // flag to keep an eye on what output is displayed
 // numbers is a NodeList object, we need to make it into an array first, then we can map through it...
 numbers.forEach(function(number) {
     number.addEventListener("click", function(e) {
-        input.innerHTML += this.innerHTML;
+        let lastChar = input.innerHTML.length - 1
+
+        // This won't allow user to have multiple .'s 
+        if (this.innerHTML == ".") {
+            if (input.innerHTML[lastChar] == "." || input.innerHTML.includes(".")) {
+                // do nothing
+            } else {
+                input.innerHTML += this.innerHTML;
+            }
+        } else {
+            input.innerHTML += this.innerHTML
+        }
+
     });
 });
 
